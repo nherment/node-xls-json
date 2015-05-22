@@ -52,8 +52,11 @@ CV.prototype.cvjson = function(csv, output, callback) {
         header = row;
       }else{
         var obj = {};
+        console.log('***** ROW')
         header.forEach(function(column, index) {
-          obj[column.trim()] = row[index].trim();
+          var field = fieldName(obj, column)
+          console.log(column, field)
+          obj[field] = row[index].trim();
         })
         record.push(obj);
       }
@@ -71,6 +74,21 @@ CV.prototype.cvjson = function(csv, output, callback) {
       
     })
     .on('error', function(error){
-      callback(error, null);
+      console.log(error.message);
     });
+}
+
+function fieldName(data, columnName, id) {
+  if(!id) {
+    id = 0;
+  }
+  var field = columnName.trim();
+  if(id > 0) {
+    field = columnName + id;
+  }
+  if(data.hasOwnProperty(field)) {
+    return fieldName(data, columnName, (id+1))
+  } else {
+    return field;
+  }
 }
