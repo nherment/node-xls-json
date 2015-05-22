@@ -1,5 +1,5 @@
 {
-  "name": "xls-to-json",
+  "name": "xls-to-json-modified",
   "version": "0.3.2",
   "description": "Converting xls file to json files using nodejs",
   "main": "index.js",
